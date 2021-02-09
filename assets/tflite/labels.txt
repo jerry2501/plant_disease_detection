@@ -1,0 +1,9 @@
+0 Peach___Bacterial_spot
+1 Peach___healthy
+2 Potato___healthy
+3 Potato___early_blight
+4 Potato___Late_blight
+5 Tomato___Bacterial_spot
+6 Tomato___Early_blight
+7 Tomato___healthy
+8 Tomato___Late_blight
