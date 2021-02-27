@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plant/pages/homescreen.dart';
 import 'package:plant/tflite/tenserflow.dart';
 
 
@@ -9,8 +10,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+      primaryColor: Color(0xff00600f)
+      ),
       title: 'Tensorflow Lite',
-      home: Tensorflow(),
+      home: homeScreen(),
     );
   }
 }
