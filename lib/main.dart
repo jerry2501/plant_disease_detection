@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-      primaryColor: Color(0xff00600f)
+      primaryColor: Color(0xff00600f),
       ),
       title: 'Tensorflow Lite',
       home: homeScreen(),

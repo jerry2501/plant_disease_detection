@@ -26,7 +26,14 @@ dependencies:
   tflite:
   image_picker:
   tab_indicator_styler:
-
+  sliding_up_panel:
+  syncfusion_flutter_gauges:
+  sleek_circular_slider:
+  gradient_widgets:
+  fbutton:
+  emojis:
+  url_launcher:
+  font_awesome_flutter:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
@@ -49,6 +56,7 @@ flutter:
   assets:
     - assets/tflite/model_unquant.tflite
     - assets/tflite/labels.txt
+    - assets/images/index.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plant/pages/nothing.dart';
+import 'package:plant/pages/plant_screen.dart';
+import 'package:plant/widgets/sliding_panel.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
 class WinterPlantScreen extends StatefulWidget {
@@ -45,7 +47,7 @@ class _WinterPlantScreenState extends State<WinterPlantScreen> {
               ),
             ),
             body: TabBarView(
-              children: [Nothing(), Nothing(), Nothing()],
+              children: [Slidingpanel(), Nothing(), Nothing()],
             )),
       ),
     );
