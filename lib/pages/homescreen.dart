@@ -6,6 +6,7 @@ import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:plant/pages/nothing.dart';
 import 'package:plant/pages/winter_plant_screen.dart';
+import 'package:plant/plant_data/data.dart';
 import 'package:plant/tflite/tenserflow.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
@@ -50,9 +51,9 @@ class _homeScreenState extends State<homeScreen> {
           ),
           body: Stack(children: [
             TabBarView(children: [
-              WinterPlantScreen(),
-              Nothing(),
-              Nothing(),
+              WinterPlantScreen(plant_list: winter_plants,),
+              WinterPlantScreen(plant_list: summer_plants,),
+              WinterPlantScreen(plant_list: monsoon_plants,),
             ]),
             Positioned(
               bottom: MediaQuery.of(context).size.height * 0.01,

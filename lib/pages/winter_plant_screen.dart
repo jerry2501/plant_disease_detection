@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:plant/pages/nothing.dart';
-import 'package:plant/pages/plant_screen.dart';
+
 import 'package:plant/widgets/sliding_panel.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
 class WinterPlantScreen extends StatefulWidget {
+  final plant_list;
+  WinterPlantScreen({@required this.plant_list});
   @override
   _WinterPlantScreenState createState() => _WinterPlantScreenState();
 }
@@ -25,13 +27,13 @@ class _WinterPlantScreenState extends State<WinterPlantScreen> {
                   indicatorColor: Colors.green,
                   tabs: [
                     Tab(
-                      text: "Home",
+                      text: widget.plant_list[0]['plant_name'],
                     ),
                     Tab(
-                      text: "Work",
+                      text: widget.plant_list[1]['plant_name'],
                     ),
                     Tab(
-                      text: "Play",
+                      text: widget.plant_list[2]['plant_name'],
                     ),
                   ],
                   labelColor: Colors.white,
@@ -47,7 +49,11 @@ class _WinterPlantScreenState extends State<WinterPlantScreen> {
               ),
             ),
             body: TabBarView(
-              children: [Slidingpanel(), Nothing(), Nothing()],
+              children: [
+                Slidingpanel(plant:widget.plant_list[0]),
+                Slidingpanel(plant:widget.plant_list[1]), 
+                Slidingpanel(plant:widget.plant_list[2]),  
+                ],
             )),
       ),
     );

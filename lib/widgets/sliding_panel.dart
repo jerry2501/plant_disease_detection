@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:plant/widgets/bullets.dart';
+import 'package:plant/widgets/gradient_text.dart';
 
 import 'package:plant/widgets/sleek_slider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class Slidingpanel extends StatefulWidget {
+  Map plant;
+  Slidingpanel({@required this.plant});
   @override
   _SlidingpanelState createState() => _SlidingpanelState();
 }
@@ -81,12 +84,38 @@ class _SlidingpanelState extends State<Slidingpanel> {
             ),
             Container(
               width: width,
-              child: Text('General Instructions',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xff00600f),
-                      fontSize: 18)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.star,
+                    color: Theme.of(context).primaryColor,
+                    size: 20,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  // Text('General Instructions',
+                  //     textAlign: TextAlign.center,
+                  //     style: TextStyle(
+                  //         fontWeight: FontWeight.bold,
+                  //         color: Color(0xff00600f),
+                  //         decoration: TextDecoration.underline,
+                  //         fontSize: 18)),
+                  _gradientText(
+                      text: 'General Instructions',
+                      fontsize: 20,
+                      fontweight: true),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Icon(
+                    Icons.star,
+                    color: Theme.of(context).primaryColor,
+                    size: 20,
+                  ),
+                ],
+              ),
             ),
             SizedBox(
               height: height * 0.02,
@@ -100,7 +129,7 @@ class _SlidingpanelState extends State<Slidingpanel> {
                   child: sleekslider(
                     min: 0,
                     max: 10,
-                    value: 3,
+                    value: double.parse(widget.plant['depth']),
                     bottomlabel: 'inch',
                     toplabel: 'Depth of Plant',
                   ),
@@ -110,8 +139,8 @@ class _SlidingpanelState extends State<Slidingpanel> {
                   width: width * 0.40,
                   child: sleekslider(
                     min: 0,
-                    max: 10,
-                    value: 3,
+                    max: 5,
+                    value: double.parse(widget.plant['water_level']),
                     bottomlabel: 'inch per week',
                     toplabel: 'Water level',
                   ),
@@ -123,7 +152,7 @@ class _SlidingpanelState extends State<Slidingpanel> {
             ),
             instruction_row(
                 titlelabel: 'Soil Quality:',
-                valuelabel: 'clay',
+                valuelabel: widget.plant['soil_quality'],
                 titlebool: true,
                 valuebool: false),
             SizedBox(
@@ -131,7 +160,7 @@ class _SlidingpanelState extends State<Slidingpanel> {
             ),
             instruction_row(
                 titlelabel: 'Fertilizer:',
-                valuelabel: '25-75 mg/week',
+                valuelabel: widget.plant['fertilizer'],
                 titlebool: true,
                 valuebool: false),
             SizedBox(
@@ -139,7 +168,7 @@ class _SlidingpanelState extends State<Slidingpanel> {
             ),
             instruction_row(
                 titlelabel: 'Harvesting Time:',
-                valuelabel: '5-7 weeks',
+                valuelabel: widget.plant['harvesting_time'],
                 titlebool: true,
                 valuebool: false),
             SizedBox(
@@ -149,17 +178,39 @@ class _SlidingpanelState extends State<Slidingpanel> {
               children: [
                 instruction_row(
                     titlelabel: 'Sunlight:',
-                    valuelabel: 'Partial sun',
+                    valuelabel: widget.plant['sunlight'],
                     titlebool: true,
                     valuebool: false),
-                SizedBox(width:5),
-                Icon(FontAwesomeIcons.cloudSun,color: Colors.deepOrange,),
-                SizedBox(width: 5,),
-                Icon(FontAwesomeIcons.solidSun,color: Colors.deepOrange,),
+                SizedBox(width: 5),
+                (widget.plant['sunlight']=='Partial Sun')?Icon(
+                  FontAwesomeIcons.cloudSun,
+                  color: Colors.deepOrange,
+                ):
+                Icon(
+                  FontAwesomeIcons.solidSun,
+                  color: Colors.deepOrange,
+                ),
               ],
             )
           ],
         ));
+  }
+
+  GradientText _gradientText({String text, double fontsize, bool fontweight}) {
+    return GradientText(
+      text,
+      fontsize: fontsize,
+      fontweight: fontweight,
+      gradient: LinearGradient(stops: [
+        0.1,
+        0.2,
+        1
+      ], colors: [
+        Color(0xff00600f),
+        Color(0xff097913),
+        Color(0xff664fb3),
+      ]),
+    );
   }
 
   Padding instruction_row(
@@ -171,7 +222,7 @@ class _SlidingpanelState extends State<Slidingpanel> {
         children: [
           MyBullet(),
           SizedBox(width: 5),
-          instruction_text(label: titlelabel, fontweight: titlebool),
+          _gradientText(text: titlelabel, fontsize: 18, fontweight: titlebool),
           SizedBox(width: 8),
           instruction_text(label: valuelabel, fontweight: valuebool),
         ],
@@ -180,13 +231,20 @@ class _SlidingpanelState extends State<Slidingpanel> {
   }
 
   Widget instruction_text({String label, bool fontweight}) {
-    return Text(
-      label,
-      textAlign: TextAlign.justify,
-      style: TextStyle(
-          fontSize: 18,
-          fontWeight: (fontweight) ? FontWeight.bold : FontWeight.normal,
-          color: Theme.of(context).primaryColor),
+    return Column(
+      children: [
+        Container(
+          child: Text(
+            label,
+            textAlign: TextAlign.justify,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+                fontSize: 18,
+                fontWeight: (fontweight) ? FontWeight.bold : FontWeight.normal,
+                color: Theme.of(context).primaryColor),
+          ),
+        ),
+      ],
     );
   }
 
@@ -202,20 +260,20 @@ class _SlidingpanelState extends State<Slidingpanel> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'assets/images/index.jpg',
+                    'assets/images/${widget.plant['plant_name']}.png',
                   ),
                   SizedBox(
                     height: 10,
                   ),
-                  Container(
-                    width: width,
-                    child: Text('Tomato',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xff00600f),
-                            fontSize: 24)),
-                  )
+                  // Container(
+                  //   width: width,
+                  //   child: Text('Tomato',
+                  //       textAlign: TextAlign.center,
+                  //       style: TextStyle(
+                  //           fontWeight: FontWeight.bold,
+                  //           color: Color(0xff00600f),
+                  //           fontSize: 24)),
+                  // )
                 ],
               ),
             )),
